@@ -367,7 +367,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile33`, function (sprite, 
     }
 })
 function Open_Inventory () {
-    InPauseScreen = true
+    InventoryVisible = true
     controller.moveSprite(mySprite, 0, 0)
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
@@ -460,7 +460,7 @@ function tomato () {
     tiles.setTileAt(tiles.getTileLocation(2, 6), assets.tile`myTile43`)
 }
 function Close_inventory () {
-    InPauseScreen = false
+    InventoryVisible = false
     controller.moveSprite(mySprite)
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile36`, function (sprite, location) {
@@ -510,7 +510,7 @@ function carrot () {
     tiles.setTileAt(tiles.getTileLocation(2, 6), assets.tile`myTile49`)
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (InPauseScreen) {
+    if (InventoryVisible) {
         Close_inventory()
     } else {
         Open_Inventory()
@@ -747,6 +747,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.ShopKeeper, function (sprite, ot
     }
     game.splash("QUEST 3 COMPLETED")
 })
+spriteutils.createRenderable(100, function (screen2) {
+    if (InventoryVisible) {
+        screen2.fillRect(10, 10, 140, 100, 13)
+        screen2.drawRect(10, 10, 140, 100, 14)
+    }
+})
 function Positions () {
     tiles.placeOnRandomTile(Bee1, assets.tile`myTile19`)
     tiles.placeOnRandomTile(Bee2, assets.tile`myTile20`)
@@ -796,7 +802,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile30`, function (sprite, 
 })
 let mySprite9: Sprite = null
 let QueenBee: Sprite = null
-let InPauseScreen = false
+let InventoryVisible = false
 let mySprite8: Sprite = null
 let mySprite7: Sprite = null
 let mySprite6: Sprite = null
