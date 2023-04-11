@@ -675,7 +675,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.ShopKeeper, function (sprite, otherSprite) {
-    game.splash("QUEST 3", "Get seeds")
+    game.splash("QUEST 3", "Get seeds!")
     game.setDialogFrame(img`
         8888.....88....888....88.88....888....888...8888
         867788..8768..86768..8678768..86768..8678.887768
