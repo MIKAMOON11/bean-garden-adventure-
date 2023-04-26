@@ -413,6 +413,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile33`, function (sprite, 
         tiles.setCurrentTilemap(tilemap`level16`)
     }
 })
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    selectedIndex = Math.max(selectedIndex - 1, 0)
+})
 function Open_Inventory () {
     InventoryVisible = true
     controller.moveSprite(mySprite, 0, 0)
@@ -482,6 +485,10 @@ function Close_inventory () {
     InventoryVisible = false
     controller.moveSprite(mySprite)
 }
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    let list: number[] = []
+    selectedIndex = Math.max(selectedIndex + 1, list.length - 1)
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile36`, function (sprite, location) {
 	
 })
@@ -757,6 +764,12 @@ spriteutils.createRenderable(100, function (screen2) {
         screen2.drawRect(10, 10, 140, 100, 14)
         images.print(screen2, "INVENTORY", 14, 14, 1)
         screen2.fillRect(14, 24, 132, 1, 14)
+        tooltop = 28
+        selectedIndex = 0
+        for (let index = 0; index <= tools.length - 1; index++) {
+            spriteutils.drawTransparentImage(tools[index], screen2, 14 + index * 20, tooltop)
+        }
+        spriteutils.drawTransparentImage(assets.image`selector`, screen2, 14 + selectedIndex * 20 - 2, tooltop - 2)
     }
 })
 function Positions () {
@@ -784,8 +797,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile29`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile35`, function (sprite, location) {
 	
 })
+let tooltop = 0
 let QueenBee: Sprite = null
 let InventoryVisible = false
+let selectedIndex = 0
 let mySprite9: Sprite = null
 let mySprite8: Sprite = null
 let mySprite7: Sprite = null
@@ -797,6 +812,7 @@ let mySprite2: Sprite = null
 let Bee3: Sprite = null
 let Bee2: Sprite = null
 let Bee1: Sprite = null
+let tools: Image[] = []
 let mySprite: Sprite = null
 info.setScore(0)
 info.setLife(3)
@@ -860,3 +876,113 @@ game.setDialogFrame(img`
 game.splash("Quest 1", "Finish the tutorial")
 game.showLongText("How to play, Use button, B to tow the ground below you!", DialogLayout.Bottom)
 game.showLongText("And use the button A, to pick weeds!", DialogLayout.Bottom)
+tools = [
+img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . 4 4 4 4 
+    . . . . 4 4 4 4 4 4 . . . e e . 
+    . . 4 4 e e e e e e 4 . 4 4 . . 
+    . 4 . 4 4 4 4 4 4 4 4 4 4 . . . 
+    4 . . 4 4 4 4 4 4 4 4 e . . . . 
+    4 . . 4 4 4 4 4 4 4 4 . . . . . 
+    4 . . 4 4 4 4 4 4 4 4 . . . . . 
+    e . . 4 4 4 4 4 4 4 4 . . . . . 
+    . e . e 4 4 4 4 4 4 4 . . . . . 
+    . . e e e e e e e e 4 . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `,
+img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . 6 6 6 6 6 . . . . . . 
+    . . . . . 6 6 6 6 6 . . . . . . 
+    . . . . . 6 6 6 6 6 . . . . . . 
+    . . . . . 6 6 6 6 6 . . . . . . 
+    . . . . . 6 6 6 6 6 . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `,
+img`
+    . . . . . . . . . . . . . . . . 
+    . . e . . . . . . . . . . . . . 
+    . . e e . . . . . . . . . . . . 
+    . . . e e . . . . . . . . . . . 
+    . . . . e e . . . . . . . . . . 
+    . . . . . e e . . . . . . . . . 
+    . . . . . . e e . . . . . . . . 
+    . . . . . . . e 4 . . b . . . . 
+    . . . . . . . . 4 4 b b b . . . 
+    . . . . . . . . . b b b b b . . 
+    . . . . . . . . b b b b b b b . 
+    . . . . . . . . . b b b b b b . 
+    . . . . . . . . . . b b b b b . 
+    . . . . . . . . . . . b b b b . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `,
+img`
+    . . . b . . . . . . . . . . . . 
+    . . . b . . . . . . . . . . . . 
+    . . b b . . . . . . . . . . . . 
+    . . b . . . . . . . . . . . . . 
+    . b b 4 . . . . . . . . . . . . 
+    . b b e 4 . . . . . . . . . . . 
+    . . . . e 4 . . . . . . . . . . 
+    . . . . . e 4 . . . . . . . . . 
+    . . . . . . e 4 . . . . . . . . 
+    . . . . . . . e 4 . . . . . . . 
+    . . . . . . . . e 4 . . . . . . 
+    . . . . . . . . . e 4 . . . . . 
+    . . . . . . . . . . e 4 . . . . 
+    . . . . . . . . . . . e 4 . . . 
+    . . . . . . . . . . . . e 4 . . 
+    . . . . . . . . . . . . . . . . 
+    `,
+img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . 3 . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . 3 . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `,
+img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . 3 . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . 3 . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `
+]

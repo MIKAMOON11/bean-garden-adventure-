@@ -6,7 +6,8 @@
         "pxt-button-combos": "github:jwunderl/pxt-button-combos#v0.0.24",
         "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3",
         "arcade-sprite-util": "github:jwunderl/arcade-sprite-util#v0.3.1",
-        "arcade-text": "github:pelikhan/arcade-image-text#v0.0.4"
+        "arcade-text": "github:pelikhan/arcade-image-text#v0.0.4",
+        "character-animations": "github:riknoll/character-animations#v0.3.2"
     },
     "files": [
         "main.blocks",
@@ -14,7 +15,9 @@
         "README.md",
         "assets.json",
         "tilemap.g.jres",
-        "tilemap.g.ts"
+        "tilemap.g.ts",
+        "images.g.jres",
+        "images.g.ts"
     ],
     "testFiles": [
         "test.ts"
